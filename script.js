@@ -5,6 +5,14 @@ let operator = undefined;
 const getOperator = document.querySelectorAll(".btn-operator");
 getOperator.forEach((btn) => {
     btn.addEventListener("click", () => {
+        if (operator !== undefined) {
+            const joinedNum1 = +firstNumber.join("");
+            const joinedNum2 = +lastNumber.join("");
+            let result = operation(joinedNum1, joinedNum2, operator);
+            firstNumber.length = 0;
+            lastNumber.length = 0;
+            firstNumber.push(result);
+        }
         operator = btn.value;
 
         display();
@@ -39,7 +47,7 @@ removeByOne.addEventListener("click", () => {
 });
 
 const removeAll = document.querySelector(".allclear");
-removeAll.addEventListener("click", () => {
+removeAll.addEventListener("click",()  => {
     firstNumber.length = 0;
     lastNumber.length = 0;
 
@@ -47,6 +55,58 @@ removeAll.addEventListener("click", () => {
     // lastNumber.splice(0,lastNumber.length);
     operator = undefined;
 
+    display();
+});
+
+function checkOperation(value){
+    switch (value) {
+        case "addition":
+            return "+";
+            break;
+        case "subtraction":
+            return "-";
+        break;
+        case "multiplication":
+            return "*";
+        break;
+        case "division":
+            return "/";
+            break;
+        case "exponent":
+            return "^";
+            break;
+        }
+}
+
+function operation(a, b, operatorVal){
+    switch (operatorVal) {
+        case "addition":
+            return a + b;
+            break;
+        case "subtraction":
+            return a - b;
+        break;
+        case "multiplication":
+            return a * b;
+        break;
+        case "division":
+            return a / b;
+            break;
+        case "exponent":
+            return a ** b;
+            break;
+        }
+}
+                    
+const getResult = document.querySelector(".equal");
+getResult.addEventListener("click", () => {
+    const joinedNum1 = +firstNumber.join("");
+    const joinedNum2 = +lastNumber.join("");
+    let result = operation(joinedNum1, joinedNum2, operator);
+    firstNumber.length = 0;
+    lastNumber.length = 0;
+    operator = undefined; 
+    firstNumber.push(result);
     display();
 });
 
@@ -67,24 +127,3 @@ function display() {
         }
     }
 }
-
-function checkOperation(value){
-    switch (value) {
-        case "addition":
-            return "+";
-        break;
-        case "subtraction":
-            return "-";
-        break;
-        case "multiplication":
-            return "*";
-        break;
-        case "division":
-            return "/";
-        break;
-        case "exponent":
-            return "^";
-        break;
-    }
-}
-

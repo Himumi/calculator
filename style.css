@@ -34,7 +34,7 @@
     justify-content: flex-end;
     align-items: flex-end;
 
-    font-size: 4em;
+    font-size: 3.5em;
     font-weight: bold;
     padding: 0 2vw 1.5vh 0 ;
 }
@@ -87,6 +87,7 @@ sup{
     }
 
     .display div{
-        padding: 0 4vw 1.5vh 0 ;
+        padding: 0 5vw 1.5vh 0 ;
+        font-size: 4em;
     }
 }
