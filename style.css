@@ -57,6 +57,7 @@
     align-items: center;
     flex: 1;
 
+    border: none;
     background-color: rgb(247, 247, 247);
     font-size: 1.9em;
 }
