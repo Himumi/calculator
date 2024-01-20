@@ -105,14 +105,21 @@ function operation(a, b, operatorVal){
                     
 const getResult = document.querySelector(".equal");
 getResult.addEventListener("click", () => {
-    const joinedNum1 = +firstNumber.join("");
-    const joinedNum2 = +lastNumber.join("");
-    let result = operation(joinedNum1, joinedNum2, operator);
-    firstNumber.length = 0;
-    lastNumber.length = 0;
-    operator = undefined; 
-    firstNumber.push(result);
-    display();
+        const joinedNum1 = +firstNumber.join("");
+        const joinedNum2 = +lastNumber.join("");
+        let result = operation(joinedNum1, joinedNum2, operator);
+        if (Number.isInteger(result) === false) {
+            result = result.toFixed(2);
+        }
+        firstNumber.length = 0;
+        lastNumber.length = 0;
+        operator = undefined; 
+        firstNumber.push(result);
+
+        if (firstNumber[0] === undefined) {
+            firstNumber.length = 0;
+        }
+        display();
 });
 
 const createDiv = document.createElement("div");
