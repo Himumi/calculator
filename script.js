@@ -6,12 +6,21 @@ const getOperator = document.querySelectorAll(".btn-operator");
 getOperator.forEach((btn) => {
     btn.addEventListener("click", () => {
         if (operator !== undefined) {
+            if (joinedNum2 === 0 && operator === "division"){
+                alert("Please don't divide number by 0. Cause it will get infinity number.");
+                firstNumber.length = 0;
+                lastNumber.length = 0;
+                operator = undefined;
+    
+           }else {
             const joinedNum1 = +firstNumber.join("");
             const joinedNum2 = +lastNumber.join("");
             let result = operation(joinedNum1, joinedNum2, operator);
             firstNumber.length = 0;
             lastNumber.length = 0;
             firstNumber.push(result);
+           }
+
         }
         operator = btn.value;
 
@@ -107,18 +116,27 @@ const getResult = document.querySelector(".equal");
 getResult.addEventListener("click", () => {
         const joinedNum1 = +firstNumber.join("");
         const joinedNum2 = +lastNumber.join("");
-        let result = operation(joinedNum1, joinedNum2, operator);
-        if (Number.isInteger(result) === false) {
-            result = result.toFixed(2);
-        }
-        firstNumber.length = 0;
-        lastNumber.length = 0;
-        operator = undefined; 
-        firstNumber.push(result);
 
-        if (firstNumber[0] === undefined) {
+        if (joinedNum2 === 0 && operator === "division"){
+            alert("Please don't divide number by 0. Cause it will get broken the calculator.");
             firstNumber.length = 0;
-        }
+            lastNumber.length = 0;
+            operator = undefined;
+
+       }else {
+           let result = operation(joinedNum1, joinedNum2, operator);
+           if (firstNumber[0] === undefined) {
+            firstNumber.length = 0;
+            }else{
+                if (Number.isInteger(result) === false) {
+                    result = result.toFixed(2);
+                 }
+                 firstNumber.length = 0;
+                 lastNumber.length = 0;
+                 operator = undefined; 
+                 firstNumber.push(result);
+            }
+        }            
         display();
 });
 
