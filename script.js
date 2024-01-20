@@ -25,7 +25,12 @@ getNumber.forEach((btn) => {
         if (operator !== undefined) {
             lastNumber.push(btn.value);
         }else {
-            firstNumber.push(btn.value);
+            if (typeof firstNumber[0] === "number") {
+                firstNumber.length = 0;
+                firstNumber.push(btn.value);
+            }else{
+                firstNumber.push(btn.value);
+            }
         }
 
         display();
