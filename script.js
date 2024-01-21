@@ -2,29 +2,29 @@ let firstNumber = [];
 let lastNumber = [];
 let operator = undefined;
 
+const displayDiv = document.createElement("div");
+const containerDisplay = document.querySelector(".display");
+containerDisplay.append(displayDiv);
+displayDiv.textContent = "0";
+
 const getOperator = document.querySelectorAll(".btn-operator");
 getOperator.forEach((btn) => {
     btn.addEventListener("click", () => {
-        if (operator !== undefined) {
-            if (joinedNum2 === 0 && operator === "division"){
-                alert("Please don't divide number by 0. Cause it will get infinity number.");
+        const joinedNum1 = +firstNumber.join("");
+        const joinedNum2 = +lastNumber.join("");
+        let result = operation(joinedNum1, joinedNum2, operator);
+        if (operator !== undefined && lastNumber[0] !== undefined) {
+            if (joinedNum2 === 0 && operator === "division") {
+                preventInfinity();
+            }else {
                 firstNumber.length = 0;
                 lastNumber.length = 0;
-                operator = undefined;
-    
-           }else {
-            const joinedNum1 = +firstNumber.join("");
-            const joinedNum2 = +lastNumber.join("");
-            let result = operation(joinedNum1, joinedNum2, operator);
-            firstNumber.length = 0;
-            lastNumber.length = 0;
-            firstNumber.push(result);
+                firstNumber.push(btn.value);
            }
-
+        }else {
+            operator = btn.value;
         }
-        operator = btn.value;
-
-        display();
+        callDisplay();
     });
 });
 
@@ -41,8 +41,7 @@ getNumber.forEach((btn) => {
                 firstNumber.push(btn.value);
             }
         }
-
-        display();
+        callDisplay();
     });
 });
 
@@ -57,22 +56,58 @@ removeByOne.addEventListener("click", () => {
     }else{
         lastNumber.pop();
     }
-    display();
+    callDisplay();
 });
 
 const removeAll = document.querySelector(".allclear");
 removeAll.addEventListener("click",()  => {
-    firstNumber.length = 0;
-    lastNumber.length = 0;
-
-    // firstNumber.splice(0,firstNumber.length);
-    // lastNumber.splice(0,lastNumber.length);
-    operator = undefined;
-
-    display();
+    setAllValueToZero();
+    callDisplay();
+});
+                   
+const getResult = document.querySelector(".equal");
+getResult.addEventListener("click", () => {
+    const joinedNum1 = +firstNumber.join("");
+    const joinedNum2 = +lastNumber.join("");
+    let result = operation(joinedNum1, joinedNum2, operator);    
+    if (firstNumber[0] === undefined || lastNumber[0] === undefined) {
+        setAllValueToZero();
+    }else if (joinedNum2 === 0 && operator === "division") {
+        preventInfinity();
+    }else {
+        if (Number.isInteger(result) === false) {
+            result = result.toFixed(2);
+            }
+            setAllValueToZero();
+            firstNumber.push(result);
+    }
+    callDisplay();
 });
 
-function checkOperation(value){
+function callDisplay() {
+    if (operator !== undefined) {
+        displayDiv.textContent = firstNumber.join("") + " " + checkOperator(operator) + " " + lastNumber.join("");
+    } else {
+        if (firstNumber.length === 0) {
+            displayDiv.textContent = "0";
+        } else {
+            displayDiv.textContent = firstNumber.join("");
+        }
+    }
+}
+
+function preventInfinity(){
+    alert("Please don't divide number by 0. Cause it will get infinity number.");
+    setAllValueToZero();
+}
+
+function setAllValueToZero(){
+    firstNumber.length = 0;
+    lastNumber.length = 0;
+    operator = undefined; 
+}
+
+function checkOperator(value){
     switch (value) {
         case "addition":
             return "+";
@@ -110,50 +145,4 @@ function operation(a, b, operatorVal){
             return a ** b;
             break;
         }
-}
-                    
-const getResult = document.querySelector(".equal");
-getResult.addEventListener("click", () => {
-        const joinedNum1 = +firstNumber.join("");
-        const joinedNum2 = +lastNumber.join("");
-
-        if (joinedNum2 === 0 && operator === "division"){
-            alert("Please don't divide number by 0. Cause it will get broken the calculator.");
-            firstNumber.length = 0;
-            lastNumber.length = 0;
-            operator = undefined;
-
-       }else {
-           let result = operation(joinedNum1, joinedNum2, operator);
-           if (firstNumber[0] === undefined) {
-            firstNumber.length = 0;
-            }else{
-                if (Number.isInteger(result) === false) {
-                    result = result.toFixed(2);
-                 }
-                 firstNumber.length = 0;
-                 lastNumber.length = 0;
-                 operator = undefined; 
-                 firstNumber.push(result);
-            }
-        }            
-        display();
-});
-
-const createDiv = document.createElement("div");
-const displayDiv = document.querySelector(".display");
-displayDiv.append(createDiv);
-createDiv.textContent = "0";
-
-function display() {
-    let checkedOperator = checkOperation(operator);
-    if (operator !== undefined) {
-        createDiv.textContent = firstNumber.join("") + " " + checkedOperator + " " + lastNumber.join("");
-    } else{
-        if (firstNumber.length === 0){
-            createDiv.textContent = "0";
-        }else{
-            createDiv.textContent = firstNumber.join("");
-        }
-    }
 }
