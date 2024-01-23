@@ -76,7 +76,7 @@ getResult.addEventListener("click", () => {
         preventInfinity();
     }else {
         if (Number.isInteger(result) === false) {
-            result = result.toFixed(2);
+            result = +result.toFixed(2);
             }
             setAllValueToZero();
             firstNumber.push(result);
