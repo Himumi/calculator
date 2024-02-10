@@ -108,41 +108,23 @@ function setAllValueToZero(){
 }
 
 function checkOperator(value){
-    switch (value) {
-        case "addition":
-            return "+";
-            break;
-        case "subtraction":
-            return "-";
-        break;
-        case "multiplication":
-            return "*";
-        break;
-        case "division":
-            return "/";
-            break;
-        case "exponent":
-            return "^";
-            break;
-        }
+    const operators = {
+        "addition" : "+",
+        "subtraction" : "-",
+        "multiplication" : "*",
+        "division" : "/",
+        "exponent" : "^",
+    }; 
+    return operators[value];
 }
 
 function operation(a, b, operatorVal){
-    switch (operatorVal) {
-        case "addition":
-            return a + b;
-            break;
-        case "subtraction":
-            return a - b;
-        break;
-        case "multiplication":
-            return a * b;
-        break;
-        case "division":
-            return a / b;
-            break;
-        case "exponent":
-            return a ** b;
-            break;
-        }
+    const operators = {
+        "addition" : a + b,
+        "subtraction" : a - b,
+        "multiplication" : a * b,
+        "division" : a / b,
+        "exponent" : a ** b,
+    }; 
+    return operators[operatorVal];
 }
