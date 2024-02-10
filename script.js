@@ -48,11 +48,7 @@ getNumber.forEach((btn) => {
 const removeByOne = document.querySelector(".clear");
 removeByOne.addEventListener("click", () => {
     if (lastNumber[0] === undefined) {
-        if (operator === undefined) {
-            firstNumber.pop();
-        }else {
-            operator = undefined;
-        }
+        operator == undefined ? firstNumber.pop() : operator = undefined;
     }else{
         lastNumber.pop();
     }
@@ -75,9 +71,7 @@ getResult.addEventListener("click", () => {
     }else if (joinedNum2 === 0 && operator === "division") {
         preventInfinity();
     }else {
-        if (Number.isInteger(result) === false) {
-            result = +result.toFixed(2);
-            }
+        if (Number.isInteger(result) === false) { result = +result.toFixed(2); }
             setAllValueToZero();
             firstNumber.push(result);
     }
@@ -86,13 +80,13 @@ getResult.addEventListener("click", () => {
 
 function callDisplay() {
     if (operator !== undefined) {
-        displayDiv.textContent = firstNumber.join("") + " " + checkOperator(operator) + " " + lastNumber.join("");
-    } else {
-        if (firstNumber.length === 0) {
-            displayDiv.textContent = "0";
-        } else {
-            displayDiv.textContent = firstNumber.join("");
-        }
+        displayDiv.textContent = firstNumber.join("") 
+            + " " + checkOperator(operator) 
+            + " " + lastNumber.join("");
+    } else { 
+        firstNumber.length === 0 
+            ? displayDiv.textContent = "0" 
+            : displayDiv.textContent = firstNumber.join("");
     }
 }
 
