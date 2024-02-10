@@ -17,9 +17,9 @@ getOperator.forEach((btn) => {
             if (joinedNum2 === 0 && operator === "division") {
                 preventInfinity();
             }else {
-                firstNumber.length = 0;
-                lastNumber.length = 0;
+                setAllValueToZero();
                 firstNumber.push(result);
+                operator = btn.value;
            }
         }else {
             operator = btn.value;
@@ -103,22 +103,22 @@ function setAllValueToZero(){
 
 function checkOperator(value){
     const operators = {
-        "addition" : "+",
-        "subtraction" : "-",
-        "multiplication" : "*",
-        "division" : "/",
-        "exponent" : "^",
+        addition : "+",
+        subtraction : "-",
+        multiplication : "*",
+        division : "/",
+        exponent : "^",
     }; 
     return operators[value];
 }
 
 function operation(a, b, operatorVal){
     const operators = {
-        "addition" : a + b,
-        "subtraction" : a - b,
-        "multiplication" : a * b,
-        "division" : a / b,
-        "exponent" : a ** b,
+        addition : a + b,
+        subtraction : a - b,
+        multiplication : a * b,
+        division : a / b,
+        exponent : a ** b,
     }; 
     return operators[operatorVal];
 }
