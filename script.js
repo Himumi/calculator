@@ -19,7 +19,7 @@ getOperator.forEach((btn) => {
             }else {
                 firstNumber.length = 0;
                 lastNumber.length = 0;
-                firstNumber.push(btn.value);
+                firstNumber.push(result);
            }
         }else {
             operator = btn.value;
